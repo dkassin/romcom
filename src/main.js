@@ -16,6 +16,13 @@ var savedView = document.querySelector('.saved-view');
 var savedCoversSection = document.querySelector('.saved-covers-section');
 var formView = document.querySelector('.form-view')
 
+var userCover = document.querySelector('.user-cover');
+var userTitle = document.querySelector('.user-title');
+var userTaglineOne = document.querySelector('.user-desc1');
+var userTaglineTwo = document.querySelector('.user-desc2');
+var userCreateBookButton = document.querySelector('.create-new-book-button');
+var userForm = document.querySelector('form');
+
 // We've provided a few variables below
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
@@ -28,6 +35,7 @@ randomCoverButton.addEventListener('click', newRandomCover);
 viewSavedButton.addEventListener('click', displaySaved);
 makeNewButton.addEventListener('click', displayForm);
 homeButton.addEventListener('click', displayHome);
+userCreateBookButton.addEventListener('click', createNewBook);
 // Create your event handlers and other functions here 👇
 
 function newRandomCover() {
@@ -39,7 +47,7 @@ function newRandomCover() {
   displayCover(currentCover);
 }
 
-function displayCover() {
+function displayCover(currentCover) {
   coverImage.src = currentCover.cover;
   coverTitle.innerText = currentCover.title;
   taglineOne.innerText = currentCover.tagline1;
@@ -79,6 +87,27 @@ function displayHome() {
   show(viewSavedButton)
   show(makeNewButton)
   hide(homeButton)
+  hide(userForm)
+}
+
+function createNewBook(event) {
+  event.preventDefault();
+  if (!userCover.value || !userTitle.value || !userTaglineOne.value || !userTaglineTwo.value) {
+    alert("Not all field were filled out!");
+  } else {
+    currentCover = new Cover(userCover.value, userTitle.value, userTaglineOne.value, userTaglineTwo.value);
+    displayCover(currentCover);
+    storeNewCover();
+    displayHome();
+    userForm.reset();
+  }
+}
+
+function storeNewCover() {
+  covers.push(userCover.value);
+  titles.push(userTitle.value);
+  descriptors.push(userTaglineOne.value);
+  descriptors.push(userTaglineTwo.value);
 }
 
 // We've provided one function to get you started
