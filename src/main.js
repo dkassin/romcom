@@ -38,6 +38,7 @@ makeNewButton.addEventListener('click', displayForm);
 homeButton.addEventListener('click', displayHome);
 userCreateBookButton.addEventListener('click', createNewBook);
 saveCoverButton.addEventListener('click', saveCurrentCover);
+savedCoversSection.addEventListener('dblclick', deleteSavedCovers);
 // Create your event handlers and other functions here 👇
 
 function newRandomCover() {
@@ -91,6 +92,15 @@ function displayHome() {
   show(makeNewButton)
   hide(homeButton)
   hide(userForm)
+}
+
+function deleteSavedCovers(event) {
+  savedCovers.forEach((item, i) => {
+    if (event.target.id === `${savedCovers[i].id}`) {
+      savedCovers.splice(i,1);
+    }
+    displaySavedCovers();
+  })
 }
 
 function displaySavedCovers() {
