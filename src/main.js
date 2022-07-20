@@ -22,6 +22,7 @@ var userTaglineOne = document.querySelector('.user-desc1');
 var userTaglineTwo = document.querySelector('.user-desc2');
 var userCreateBookButton = document.querySelector('.create-new-book-button');
 var userForm = document.querySelector('form');
+var savedCoversSection = document.querySelector('.saved-covers-section');
 
 // We've provided a few variables below
 var savedCovers = [
@@ -36,6 +37,7 @@ viewSavedButton.addEventListener('click', displaySaved);
 makeNewButton.addEventListener('click', displayForm);
 homeButton.addEventListener('click', displayHome);
 userCreateBookButton.addEventListener('click', createNewBook);
+saveCoverButton.addEventListener('click', saveCurrentCover);
 // Create your event handlers and other functions here 👇
 
 function newRandomCover() {
@@ -78,6 +80,7 @@ function displaySaved() {
   hide(formView)
   hide(saveCoverButton)
   hide(randomCoverButton)
+  displaySavedCovers();
 }
 
 function displayHome() {
@@ -88,6 +91,29 @@ function displayHome() {
   show(makeNewButton)
   hide(homeButton)
   hide(userForm)
+}
+
+function displaySavedCovers() {
+  savedCoversSection.innerHTML = ``;
+  savedCovers.forEach((item, i) => {
+    savedCoversSection.innerHTML += `
+      <section class="mini-cover">
+        <img class="cover-image" id="${savedCovers[i].id}" src="${savedCovers[i].cover}">
+        <h2 class="cover-title">${savedCovers[i].title}</h2>
+        <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+        <img class="price-tag" src="./assets/price.png">
+        <img class="overlay" src="./assets/overlay.png">
+      </section>
+    `
+  });
+}
+
+
+function saveCurrentCover() {
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.push(currentCover);
+  }
+  console.log(savedCovers)
 }
 
 function createNewBook(event) {
